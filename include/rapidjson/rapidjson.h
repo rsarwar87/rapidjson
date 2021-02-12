@@ -403,7 +403,16 @@ RAPIDJSON_NAMESPACE_END
 */
 #ifndef RAPIDJSON_ASSERT
 #include <cassert>
-#define RAPIDJSON_ASSERT(x) assert(x)
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+#define RAPIDJSON_ASSERT(x) \
+  if (!(x)) {\
+    std::ostringstream stringStream; \
+    std::cout << "RAPIDJSON_ASSERT failed\n"; \
+    stringStream << __FILE__ << "(" << __LINE__ << ")" << " <" << #x << "> failed\n"; \
+    throw std::runtime_error(stringStream.str()); \ 
+  }
 #endif // RAPIDJSON_ASSERT
 
 ///////////////////////////////////////////////////////////////////////////////

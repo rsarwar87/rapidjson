@@ -16,7 +16,7 @@
 #define RAPIDJSON_DOCUMENT_H_
 
 /*! \file document.h */
-
+#include <stdexcept>
 #include "reader.h"
 #include "internal/meta.h"
 #include "internal/strfunc.h"
@@ -1217,7 +1217,7 @@ public:
         if (member != MemberEnd())
             return member->value;
         else {
-            RAPIDJSON_ASSERT(false);    // see above note
+            throw std::runtime_error("ERROR: Member not found");    // see above note
 
             // This will generate -Wexit-time-destructors in clang
             // static GenericValue NullValue;
